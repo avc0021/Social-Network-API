@@ -21,7 +21,14 @@ const userController = {
                 console.log(err);
                 res.sendStatus(404);
             });
-    },       
+    },
+    
+    //create user
+    createUser({ body }, res) {
+        User.create(body)
+            .then(dbUserData => res.json(dbUserData))
+            .catch(err => res.json(err));
+    },
 }
 
-module.exports + userController;
+module.exports = userController;
