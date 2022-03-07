@@ -3,7 +3,7 @@ const dateFormat = require('../utils/dateFormat');
 
 const ReactionSchema = new Schema(
    {  
-      reationId: {
+      reactionId: {
         type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId()
       },
