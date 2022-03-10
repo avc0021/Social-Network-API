@@ -73,32 +73,22 @@ const thoughtController = {
         )
             .then(dbThoughtData => {
                 if(!dbThoughtData) {
-                    res.status(404).json({ message: 'Thought no found to add reaction'});
+                    res.status(404).json({ message: 'Thought not found to add reaction'});
                     return;
                 }
                 res.json(dbThoughtData);
             })
             .catch(err => res.json(err));
     },
-    // remove comment
+    // remove thought
     removeThought({ params }, res) {
-        Thought.findOneAndDelete({ _id: params.commentId })
-            .then(deletedThought => {
-                if (!deletedThought) {
-                    return res.status(404).json({ message: 'Thought with this Id'});   
-                }
-                return User.findOneAndUpdate(
-                    { _id: params.UserId },
-                    { $pull: { thoughts: params.thoughtId } },
-                    { new: true }
-                );
-            })
-            .then(dbUserData => {
-                if (!dbUserData) {
-                    res.status(404).json({ message: 'No user found with this Id' });
+        Thought.findOneAndDelete({ _id: params.id })
+            .then(dbThoughtData => {
+                if(!dbThoughtData) {
+                    res.status(404).json({ message: 'Successfully deleted!' });
                     return;
                 }
-                res.json(dbUserData);
+                res.json(dbThoughtData);
             })
             .catch(err => res.json(err));
 
@@ -113,6 +103,6 @@ const thoughtController = {
             .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => res.json(err));
     }
-}
+};
 
 module.exports = thoughtController;
